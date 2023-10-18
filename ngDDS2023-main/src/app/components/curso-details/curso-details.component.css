@@ -1,0 +1,8 @@
+.valid-input {
+  background-color: #c8f7c5; /* Color de fondo verde */
+}
+
+/* Clase para campos inválidos */
+.invalid-input {
+  background-color: #ffb2b2; /* Color de fondo rojo */
+}

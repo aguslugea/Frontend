@@ -1,0 +1,103 @@
+<html>
+
+<body>
+    <h1>Agregar Curso</h1>
+    <p>Ingrese los datos del nuevo curso.</p>
+</body>
+</html>
+
+<div>
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="title">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          required
+          [(ngModel)]="curso.nombre"
+          name="title"
+          #nombreInput
+          [ngClass]="{'valid-input': nombreInput.value && nombreInput.value.length >= 4, 'invalid-input': nombreInput.value && nombreInput.value.length < 4}"
+        />
+        <!--  Agrega la validación de longitud mínima -->
+        <div *ngIf="nombreInput.value && nombreInput.value.length < 4" class="text-danger">
+          El nombre debe tener al menos 4 caracteres.
+        </div> 
+      </div>
+      
+      <div class="form-group">
+        <label for="date_range">Fecha inicio</label>
+        <input
+          type="date"
+          class="form-control"
+          id="date_range"
+          required
+          [(ngModel)]="curso.fechaInicio"
+          name="date_range"	
+          (change)="validateFechaInicio()"
+          #fechaInicioInput
+        />
+         <small class="form-text text-muted">Seleccione una fecha desde el calendario, caso contrario se cargara con la fecha de hoy.</small>
+          <div *ngIf="fechaInicioInvalid" class="text-danger">La fecha no puede ser menor que la fecha actual.</div>
+    
+      </div>
+
+	<div class="form-group">
+  <label for="title">Docente</label>
+  <select
+    class="form-control"
+    id="title"
+    required
+    [(ngModel)]="curso.idDocente"
+    name="title"
+  >
+    <option *ngFor="let docente of docentes" [value]="docente.id">{{ docente.id }} - {{ docente.nombre }}</option>
+  </select>
+  </div>
+  
+ 
+       
+   <div class="form-group">
+  <label for="tema">Tema</label>
+  <select class="form-control" id="tema" [(ngModel)]="selectedCursoId" name="tema" (change)="onCursoSelect()">
+    <option *ngFor="let tema of temas" [value]="tema.id">{{ tema.nombre }}</option>
+  </select>
+    <small class="form-text text-muted">Seleccione el tema del curso.</small>
+</div>
+      
+   <div class="form-group" *ngIf="selectedCursoId !== null">
+  <label for="material">Material</label>
+  <select class="form-control" id="material" name="material">
+    <option *ngFor="let material of materiales" [value]="material.id">{{ material.titulo }}</option>
+  </select>
+    <small class="form-text text-muted">Seleccione un material.</small>
+</div>
+
+        
+    <!--   <button (click)="saveCurso()" class="btn btn-success" [disabled]="!curso.nombre || !curso.fechaInicio || !curso.idDocente || !curso.tema?.id">Guardar</button> -->
+      
+     <button (click)="saveCurso()" class="btn btn-success"
+  [disabled]="!curso.nombre || curso.nombre.length < 4 || !curso.fechaInicio || fechaInicioInput.value == 'dd/mm/aaaa' || !curso.idDocente || !curso.tema?.id">
+  Guardar
+</button>
+
+
+
+
+
+    
+      <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <div *ngIf="submitted">
+      <h4>Curso fue guardado exitosamente!</h4>
+      <button class="btn btn-success" (click)="newCurso()">Agregar Nuevo</button>
+    </div>
+  </div>
+
