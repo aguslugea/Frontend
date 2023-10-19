@@ -106,7 +106,9 @@ export class CursoAddComponent implements OnInit {
   
 
 onCursoSelect() {
+
     if (this.selectedCursoId !== null) {
+		console.log(this.selectedCursoId);		
       this.cursoService.getMaterialesPorCurso(this.selectedCursoId).subscribe((materiales) => {
         this.materiales = materiales;
       });

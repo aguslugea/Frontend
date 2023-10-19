@@ -19,11 +19,11 @@
           [(ngModel)]="curso.nombre"
           name="title"
           #nombreInput
-          [ngClass]="{'valid-input': nombreInput.value && nombreInput.value.length >= 4, 'invalid-input': nombreInput.value && nombreInput.value.length < 4}"
+          [ngClass]="{'valid-input': nombreInput.value && nombreInput.value.length >= 4 && nombreInput.value.length <= 15, 'invalid-input': nombreInput.value && nombreInput.value.length < 4 || nombreInput.value.length > 15}"
         />
         <!--  Agrega la validación de longitud mínima -->
-        <div *ngIf="nombreInput.value && nombreInput.value.length < 4" class="text-danger">
-          El nombre debe tener al menos 4 caracteres.
+        <div *ngIf="nombreInput.value && nombreInput.value.length < 4 || nombreInput.value.length > 15" class="text-danger">
+          El nombre debe tener al menos 4 caracteres y maximo 15 caracteres.
         </div> 
       </div>
       
@@ -79,7 +79,7 @@
     <!--   <button (click)="saveCurso()" class="btn btn-success" [disabled]="!curso.nombre || !curso.fechaInicio || !curso.idDocente || !curso.tema?.id">Guardar</button> -->
       
      <button (click)="saveCurso()" class="btn btn-success"
-  [disabled]="!curso.nombre || curso.nombre.length < 4 || !curso.fechaInicio || fechaInicioInput.value == 'dd/mm/aaaa' || !curso.idDocente || !curso.tema?.id">
+  [disabled]="!curso.nombre || curso.nombre.length < 4 || curso.nombre.length > 15|| !curso.fechaInicio || fechaInicioInput.value == 'dd/mm/aaaa' || !curso.idDocente || !curso.tema?.id">
   Guardar
 </button>
 
