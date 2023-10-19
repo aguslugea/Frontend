@@ -65,8 +65,12 @@ export class CursoService {
     return this.http.get<Curso>(`${baseUrl}?nombre=${nombre}`);
   }
   
-  getMaterialesPorCurso(idCurso: number): Observable<Material[]> {
+ /* getMaterialesPorCurso(idCurso: number): Observable<Material[]> {
     return this.http.get<Material[]>(`/api/materiales/curso/${idCurso}`);
+  }*/
+  
+    getMaterialesPorCurso(idCurso: number): Observable<Material[]> {
+    return this.http.get<Material[]>(`/materiales/curso/${idCurso}`);
   }
   
   getDocenteNombre(idDocente: number): Observable<string> {
